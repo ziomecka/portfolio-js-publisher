@@ -6,9 +6,10 @@
   "scripts": {
     "build:declarations": "tsc  -p tsconfig.declarations.json --declaration --emitDeclarationOnly",
     "build": "rm -rf dist && babel src --out-dir dist --extensions '.ts,.tsx' && npm run build:declarations",
-    "tsc:compile": "tsc -p tsconfig.json",
+    "tsc": "tsc -p tsconfig.json",
     "test": "jasmine JASMINE_CONFIG_PATH=spec/config/jasmine.json",
-    "lint": "eslint . --ext .ts,.js"
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [
     "publisher",
@@ -30,6 +31,7 @@
     "chai": "4.2.0",
     "chai-sinon": "2.8.1",
     "eslint": "6.3.0",
+    "eslint-config-prettier": "6.2.0",
     "jasmine": "3.4.0",
     "prettier": "1.18.2",
     "sinon": "7.4.2",
