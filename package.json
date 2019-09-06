@@ -1,0 +1,43 @@
+{
+  "name": "publisher",
+  "version": "1.0.0",
+  "description": "Publisher-subscriber pattern",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:declarations": "tsc  -p tsconfig.declarations.json --declaration --emitDeclarationOnly",
+    "build": "rm -rf dist && babel src --out-dir dist --extensions '.ts,.tsx' && npm run build:declarations",
+    "tsc:compile": "tsc -p tsconfig.json",
+    "test": "jasmine JASMINE_CONFIG_PATH=spec/config/jasmine.json",
+    "lint": "eslint . --ext .ts,.js"
+  },
+  "keywords": [
+    "publisher",
+    "subscriber",
+    "javascript"
+  ],
+  "author": "Katarzyna Ziomek-Zdanowicz",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "7.5.5",
+    "@babel/core": "7.5.5",
+    "@babel/node": "7.5.5",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-typescript": "7.3.3",
+    "@babel/register": "7.5.5",
+    "@typescript-eslint/eslint-plugin": "2.1.0",
+    "@typescript-eslint/parser": "2.1.0",
+    "chai": "4.2.0",
+    "chai-sinon": "2.8.1",
+    "eslint": "6.3.0",
+    "jasmine": "3.4.0",
+    "prettier": "1.18.2",
+    "sinon": "7.4.2",
+    "typescript": "3.6.2"
+  },
+  "repository": "https://github.com/ziomecka/portfolio-js-publisher.git",
+  "engines": {
+    "npm": "6.9.0",
+    "node": "12.3.0"
+  }
+}

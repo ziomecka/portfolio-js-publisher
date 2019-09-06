@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/**/*",
+    ],
+    "lib": [ "dom", "es2015", "es2017" ]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "spec",
+    "*.js"
+  ]
+}
