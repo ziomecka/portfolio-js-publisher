@@ -1,5 +1,5 @@
 {
-  "name": "publisher",
+  "name": "publisher-subscriber-pattern",
   "version": "1.0.0",
   "description": "Publisher-subscriber pattern",
   "main": "dist/index.js",
