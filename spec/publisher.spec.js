@@ -144,6 +144,6 @@ describe('Publisher', () => {
     publisher.subscribe(fooEventName, secondSubscriber.callback, secondSubscriber);
 
     // then
-    expect(publisher.subscribersCount).toBe(4);
+    expect(publisher.subscribersCount()).toBe(4);
   });
 });

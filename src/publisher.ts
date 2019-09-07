@@ -1,12 +1,12 @@
 import {
-  EventCallback,
   Subscriber,
+  SubscriberEventCallback,
 } from './subscriber';
 
 type EventName = string;
-type EventData = [EventCallback, Subscriber[]];
+type EventData = [SubscriberEventCallback, Subscriber[]];
 
-export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
+export type SubscriptionFunctions = (eventName: string, eventCallback: SubscriberEventCallback) => void;
 export type PublisherProps = [ unknown, SubscriptionFunctions, SubscriptionFunctions ];
 
 export class Publisher {
@@ -20,7 +20,7 @@ export class Publisher {
     this.removeEventListener = removeEventListener.bind(emitterInstance);
   }
 
-  public subscribe = (eventName: EventName, eventCallback: EventCallback, subscriberInstance?: Record<string, unknown>): () => void => {
+  public subscribe = (eventName: EventName, eventCallback: SubscriberEventCallback, subscriberInstance?: Record<string, unknown>): () => void => {
     const eventData = this.getEventData(eventName);
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
 
@@ -40,8 +40,8 @@ export class Publisher {
     return this.getSubscribers(eventName).length;
   }
 
-  public get subscribersCount (): number {
-    return Array.from(this.eventData.values()).reduce((count, eventData) => {
+  public subscribersCount = (): number => {
+    return Array.from(this.eventData.values()).reduce((count = 0, eventData) => {
       count += eventData[ 1 ].length;
       return count;
     }, 0);
@@ -54,7 +54,7 @@ export class Publisher {
     ) as EventData;
   }
 
-  private getEventCallback (eventName: EventName): EventCallback {
+  private getEventCallback (eventName: EventName): SubscriberEventCallback {
     return this.getEventData(eventName)[ 0 ];
   }
 
@@ -62,7 +62,7 @@ export class Publisher {
     return this.getEventData(eventName)[ 1 ];
   }
 
-  private buildInformSubscribers = (eventName: EventName): EventCallback => (
+  private buildInformSubscribers = (eventName: EventName): SubscriberEventCallback => (
     (event: Event): void => {
       this.getSubscribers(eventName)
       .forEach(subscriber => subscriber.eventCallback(event));
