@@ -1,1 +1,1 @@
-export { Publisher } from './publisher';
+export { Publisher, PublisherProps } from './publisher';

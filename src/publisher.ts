@@ -5,17 +5,15 @@ import {
 
 type EventName = string;
 type EventData = [EventCallback, Subscriber[]];
+
 export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
+export type PublisherProps = [ unknown, SubscriptionFunctions, SubscriptionFunctions ];
 
 export class Publisher {
   private eventData: Map< EventName, EventData>;
   private addEventListener: SubscriptionFunctions;
   private removeEventListener: SubscriptionFunctions;
-  constructor (
-    emitterInstance: unknown,
-    addEventListener: SubscriptionFunctions,
-    removeEventListener: SubscriptionFunctions
-  ) {
+  constructor (...[ emitterInstance, addEventListener, removeEventListener ]: PublisherProps ) {
     this.eventData = new Map([]);
 
     this.addEventListener = addEventListener.bind(emitterInstance);
