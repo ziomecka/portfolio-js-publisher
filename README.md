@@ -23,6 +23,7 @@
 * Required parameters: *eventName*, *eventCallback*
 * Optional parameter: *subscriberInstance* that will be bound to *eventCallback* as *this*
 * Subscribes *eventCallback* to *eventName*, so whenever event occurs the *eventCallback* is called (with *subscriberInstance* as *this*, if provided)
+* Returns unsubscribe function
 
 #### unsubscribeAll
 * Unsubscribes all *eventCallbacks* from all *eventNames*
