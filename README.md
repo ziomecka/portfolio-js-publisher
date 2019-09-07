@@ -6,8 +6,7 @@
 # API
 ## **Publisher**
 * Parameters: *emitterInstance*, *addEventListener*, *removeEventListener*
-* Methods: *subscribe*, *unsubscribeAll*, *eventSubscribersCount*
-* Properties: *subscribersCount*
+* Methods: *subscribe*, *unsubscribeAll*, *eventSubscribersCount*, *subscribersCount*
 
 ### Parameters
 
@@ -32,8 +31,6 @@
 #### eventSubscriberCount
 * Required parameter: *eventName*
 * Returns number of *eventCallbacks* subscribed to the *evenName*
-
-### Properties
 
 #### subscribersCount
 * Returns number of *eventCallbacks* subscribed to all *evenNames*

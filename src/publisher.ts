@@ -40,8 +40,8 @@ export class Publisher {
     return this.getSubscribers(eventName).length;
   }
 
-  public get subscribersCount (): number {
-    return Array.from(this.eventData.values()).reduce((count, eventData) => {
+  public subscribersCount = (): number => {
+    return Array.from(this.eventData.values()).reduce((count = 0, eventData) => {
       count += eventData[ 1 ].length;
       return count;
     }, 0);
