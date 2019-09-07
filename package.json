@@ -1,7 +1,7 @@
 {
   "name": "publisher-subscriber-pattern",
   "version": "1.0.0",
-  "description": "Publisher-subscriber pattern",
+  "description": "Publisher subscriber pattern that can be used with different event emitters including browser window",
   "main": "dist/index.js",
   "scripts": {
     "build:declarations": "tsc  -p tsconfig.declarations.json --declaration --emitDeclarationOnly",
@@ -14,7 +14,15 @@
   "keywords": [
     "publisher",
     "subscriber",
-    "javascript"
+    "window",
+    "addEventListener",
+    "removeEventListener",
+    "subscribe",
+    "publish",
+    "unsubscribe",
+    "javascript",
+    "typescript",
+    "unit tests"
   ],
   "author": "Katarzyna Ziomek-Zdanowicz",
   "license": "ISC",
