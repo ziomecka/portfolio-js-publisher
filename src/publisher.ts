@@ -32,13 +32,13 @@ export class Publisher {
     return this.unsubscribe(eventName, subscriber);
   }
 
-  public unsubscribeAll (): void {
+  public unsubscribeAll = (): void => {
     Array.from(this.eventData.keys()).forEach(eventName => {
       this.unobserveEvent(eventName);
     });
   }
 
-  public eventSubscribersCount (eventName: EventName): number {
+  public eventSubscribersCount = (eventName: EventName): number => {
     return this.getSubscribers(eventName).length;
   }
 
