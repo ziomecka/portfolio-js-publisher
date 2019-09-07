@@ -1,10 +1,12 @@
 # About
 * Javascript implementation of publisher subscriber pattern
-* Can be used with different event emitters including browser window
+* Can be used with various event emitters including browser's window object
 * Provides **Publisher** class
 
 # Installation
-`npm i publisher-subscriber-pattern`
+```javascript
+npm i publisher-subscriber-pattern
+```
 
 # Example
 
@@ -17,7 +19,7 @@ import { Publisher } from 'publisher-subscriber-pattern';
 const publisher = new Publisher(window, window.addEventListener, window.removeEventListener);
 ```
 
-*Publisher* *subscribe* method returns function, which can be used later to unsubscribe from the event.
+*Publisher's* *subscribe* method returns function, which can be used later to unsubscribe from the event.
 
 ```javascript
 const unsubscribe = publisher.subscribe('scroll', (event) => {});
@@ -25,6 +27,12 @@ const unsubscribe = publisher.subscribe('scroll', (event) => {});
 // ...foo code...
 
 unsubscribe();
+```
+
+There is also a method *unsubscribeAll* for unsubscribing all subscribers from all events.
+
+```javascript
+publisher.unsubscribeAll();
 ```
 
 # API
