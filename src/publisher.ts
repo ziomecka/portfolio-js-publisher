@@ -22,7 +22,7 @@ export class Publisher {
     this.removeEventListener = removeEventListener.bind(emitterInstance);
   }
 
-  public subscribe (eventName: EventName, eventCallback: EventCallback, subscriberInstance?: Record<string, unknown>): () => void {
+  public subscribe = (eventName: EventName, eventCallback: EventCallback, subscriberInstance?: Record<string, unknown>): () => void => {
     const eventData = this.getEventData(eventName);
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
 
