@@ -3,7 +3,7 @@ require('chai-sinon');
 
 const Publisher = require('./config/publisher-babel');
 const sinon = require('sinon');
-const eventEmitterStub = require('./event-emitter-stub');
+const eventEmitterStub = require('./mocks/event-emitter-stub');
 
 describe('Publisher', () => {
   const fooEventName = 'fooEvent';
