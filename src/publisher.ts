@@ -1,13 +1,13 @@
 import {
+  EventData,
+  EventName,
+  PublisherProps,
+  SubscriptionFunctions,
+} from './publisher.types';
+import {
   Subscriber,
   SubscriberEventCallback,
 } from './subscriber';
-
-type EventName = string;
-type EventData = [SubscriberEventCallback, Subscriber[]];
-
-export type SubscriptionFunctions = (eventName: string, eventCallback: SubscriberEventCallback) => void;
-export type PublisherProps = [ unknown, SubscriptionFunctions, SubscriptionFunctions ];
 
 export class Publisher {
   private eventData: Map< EventName, EventData>;
