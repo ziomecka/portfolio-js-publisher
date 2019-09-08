@@ -1,3 +1,9 @@
+# @2.0.1 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.08]
+* accepts 'string', 'number' and 'symbol' as types of keys in EmitterInstance, thus window will be valid emitterInstance
+* adds and exports type UnsubscribeFunction
+* adds eol-last eslint rule
+* modifies README
+
 # @2.0.0 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.08]
 * changes Publisher parameters: from emitterInstance's methods to names of emitterInstance's methods (functions to strings)
 * publisher subscribes to eventEmitter's event only once (bugFix)
