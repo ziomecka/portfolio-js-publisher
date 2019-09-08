@@ -1,8 +1,10 @@
-export type SubscriberEventCallback = (event: Event) => void;
+import { EventCallback } from './_types';
+
+type SubscriberInstance = Record<string, unknown>;
 
 export class Subscriber {
-  public eventCallback: SubscriberEventCallback;
-  constructor (eventCallback: SubscriberEventCallback, subscriberInstance?: Record<string, unknown>) {
+  public eventCallback: EventCallback;
+  constructor (eventCallback: EventCallback, subscriberInstance?: SubscriberInstance) {
     this.eventCallback = eventCallback.bind(subscriberInstance);
   }
 }

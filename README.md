@@ -1,6 +1,6 @@
 # About
 * Javascript implementation of publisher subscriber pattern
-* Can be used with various event emitters including browser's window object
+* Can be used with various event emitters including browser's *window* object
 * Provides **Publisher** class
 
 # Installation
@@ -16,10 +16,10 @@ Other valid emitter instances can be also used.
 ```javascript
 import { Publisher } from 'publisher-subscriber-pattern';
 
-const publisher = new Publisher(window, window.addEventListener, window.removeEventListener);
+const publisher = new Publisher(window, 'addEventListener','removeEventListener');
 ```
 
-*Publisher's* *subscribe* method returns function, which can be used later to unsubscribe from the event.
+*Publisher's* *subscribe* method returns function, which can be used later to unsubscribe from the publisher's event.
 
 ```javascript
 const unsubscribe = publisher.subscribe('scroll', (event) => {});
@@ -29,7 +29,7 @@ const unsubscribe = publisher.subscribe('scroll', (event) => {});
 unsubscribe();
 ```
 
-There is also a method *unsubscribeAll* for unsubscribing all subscribers from all events.
+There is also a method *unsubscribeAll* for unsubscribing all subscribers from all emitter's events.
 
 ```javascript
 publisher.unsubscribeAll();
@@ -37,35 +37,36 @@ publisher.unsubscribeAll();
 
 # API
 ## **Publisher**
-* Parameters: *emitterInstance*, *addListener*, *removeListener*
+* Parameters: *emitterInstance*, *addListenerMethodName*, *removeListenerMethodName*
 * Methods: *subscribe*, *unsubscribeAll*, *eventSubscribersCount*, *subscribersCount*
 
 ### Parameters
 
 #### emitterInstance
-* Object that will be bound to *addListener* and *removeListener* as *this* ([see Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind))
+* Object, which exposes *addListener* and *removeListener* methods
+* Behind the scenes, the *emitterInstance* is bound to *addListener* and *removeListener* methods as *this* ([see Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind))
 
-#### addListener, removeListener
-* Methods exposed by *emitterInstance* which *add* and *remove* event listeners, respectively
+#### addListenerMethodName, removeListenerMethodName
+* Names of methods exposed by *emitterInstance* which add and remove event listeners, respectively
 
 ### Methods
 
 #### subscribe
 * Required parameters: *eventName*, *eventCallback*
-* Optional parameter: *subscriberInstance* that will be bound to *eventCallback* as *this*
-* Subscribes *eventCallback* to *eventName*, so whenever event occurs the *eventCallback* is called (with *subscriberInstance* as *this*, if provided)
-* Returns unsubscribe function
+* Optional parameter: *subscriberInstance*, which will be bound to the *eventCallback* argument as *this* ([see Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind))
+
+* Method subscribes *eventCallback* to *eventName*, so whenever event occurs the *eventCallback* is called
+* Returns function for unsubscribing from the event
 
 #### unsubscribeAll
-* Unsubscribes all *eventCallbacks* from all *eventNames*
-* Runs *removeListener* of *emitterInstance* fro all *eventNames*
+* Unsubscribes all publisher's *eventCallbacks* from all emitter's *eventNames*
 
 #### eventSubscriberCount
 * Required parameter: *eventName*
-* Returns number of *eventCallbacks* subscribed to the *evenName*
+* Returns number of subscribers' *eventCallbacks* subscribed to publisher's *eventName*
 
 #### subscribersCount
-* Returns number of *eventCallbacks* subscribed to all *evenNames*
+* Returns number of subscriber's *eventCallbacks* subscribed to all publisher's *eventNames*
 
 # Dependencies
 
