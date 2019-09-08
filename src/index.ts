@@ -1,3 +1,3 @@
 export { EventCallback } from './subscriber';
 export { Publisher } from './publisher';
-export { PublisherProps } from './publisher.types';
+export { PublisherProps } from './_types';

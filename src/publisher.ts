@@ -5,7 +5,7 @@ import {
   PublisherProps,
   SubscriptionFunctions,
   isValidEmitter
-} from './publisher.types';
+} from './_types';
 import {
   EventCallback,
   Subscriber,
