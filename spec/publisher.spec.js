@@ -43,17 +43,19 @@ describe('Publisher', () => {
     global.eventCallback.restore();
   });
 
-  it('subscribes to event', function () {
+  it('subscribes to event only once', function () {
     // given
     const publisher = new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
 
     // when
+    publisher.subscribe(fooEventName, eventCallback);
     publisher.subscribe(fooEventName, eventCallback);
 
     // then
     const { args: [ passedEventName, passedCallback ] } = eventEmitterStub[ addListenerMethodName ].getCalls()[ 0 ];
 
     expect(eventEmitterStub[ addListenerMethodName ]).toBeCalledOnce;
+    expect(eventEmitterStub.listenerCount(fooEventName)).toBe(1);
     expect(passedEventName).toBe(fooEventName);
     expect(typeof passedCallback).toBe('function');
   });
@@ -94,6 +96,10 @@ describe('Publisher', () => {
     expect(typeof firstPassedCallback).toBe('function');
     expect(secondPassedEventName).toBe(fooEventName);
     expect(typeof secondCallback).toBe('function');
+
+    expect(eventEmitterStub.listenerCount(barEventName)).toBe(0);
+    expect(eventEmitterStub.listenerCount(fooEventName)).toBe(0);
+
   });
 
   it('informs subscribers about event', () => {
