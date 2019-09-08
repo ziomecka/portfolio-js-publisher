@@ -30,6 +30,7 @@ module.exports = {
     'arrow-spacing': 'error',
     'comma-spacing': 'error',
     'computed-property-spacing': ['error', 'always'],
+    'eol-last': ['error', 'always'],
     'key-spacing': 'error',
     'max-len': ['error', { "code": 100 }],
     'no-duplicate-imports': 'error',
