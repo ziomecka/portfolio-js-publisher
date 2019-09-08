@@ -1,15 +1,13 @@
 import {
   EmitterInstance,
+  EventCallback,
   EventData,
   EventName,
   PublisherProps,
   SubscriptionFunctions,
   isValidEmitter
 } from './_types';
-import {
-  EventCallback,
-  Subscriber,
-} from './subscriber';
+import { Subscriber } from './subscriber';
 
 export class Publisher {
   private eventData: Map< EventName, EventData>;

@@ -1,4 +1,5 @@
-export type EventCallback = (event: Event) => void;
+import { EventCallback } from './_types';
+
 type SubscriberInstance = Record<string, unknown>;
 
 export class Subscriber {

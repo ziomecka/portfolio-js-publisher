@@ -1,7 +1,6 @@
-import {
-  EventCallback,
-  Subscriber,
-} from './subscriber';
+import { Subscriber } from './subscriber';
+
+export type EventCallback = (event: Event) => void;
 
 export type EventName = string;
 export type EventData = [EventCallback, Subscriber[]];
