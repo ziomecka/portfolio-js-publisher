@@ -4,19 +4,28 @@ require('chai-sinon');
 const Publisher = require('./config/publisher-babel');
 const sinon = require('sinon');
 const eventEmitterStub = require('./mocks/event-emitter-stub');
+const SubscriberStub = require('./mocks/subscriber-stub');
 
 describe('Publisher', () => {
   const fooEventName = 'fooEvent';
   const barEventName = 'barEvent';
 
-  const Subscriber = function () {
-    this.calls = 0;
-    this.callback = () => this.calls++;
-  };
   const addListenerMethodName = 'addListener';
   const removeListenerMethodName = 'removeListener';
 
   global.eventCallback = () => {};
+
+  const buildPublisherSubscribers = () => {
+    const publisher = new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
+    const firstSubscriber = new SubscriberStub();
+    const secondSubscriber = new SubscriberStub();
+
+    return {
+      publisher,
+      firstSubscriber,
+      secondSubscriber,
+    };
+  };
 
   beforeEach(function () {
     sinon.spy( eventEmitterStub, addListenerMethodName);
@@ -89,46 +98,42 @@ describe('Publisher', () => {
 
   it('informs subscribers about event', () => {
     // given
-    const publisher = new Publisher(eventEmitterStub, eventEmitterStub.addListener, eventEmitterStub.removeListener);
-    const firstSubscriber = new Subscriber();
-    const secondSubscriber = new Subscriber();
+    const { publisher, firstSubscriber, secondSubscriber } = buildPublisherSubscribers();
 
     // when
     publisher.subscribe(fooEventName, firstSubscriber.callback, firstSubscriber);
     publisher.subscribe(barEventName, secondSubscriber.callback, secondSubscriber);
+
     eventEmitterStub.emit(fooEventName);
     eventEmitterStub.emit(barEventName);
     eventEmitterStub.emit(fooEventName);
 
     // then
-    expect(firstSubscriber.calls).toBe(2);
-    expect(secondSubscriber.calls).toBe(1);
+    expect(firstSubscriber.callsCount).toBe(2);
+    expect(secondSubscriber.callsCount).toBe(1);
   });
 
-  it('does not inform subscribers about event', () => {
+  it('does not inform unsubscribed subscribers about event', () => {
     // given
-    const publisher = new Publisher(eventEmitterStub, eventEmitterStub.addListener, eventEmitterStub.removeListener);
-    const firstSubscriber = new Subscriber();
-    const secondSubscriber = new Subscriber();
+    const { publisher, firstSubscriber, secondSubscriber } = buildPublisherSubscribers();
 
     // when
     publisher.subscribe(fooEventName, firstSubscriber.callback, firstSubscriber);
     publisher.subscribe(barEventName, secondSubscriber.callback, secondSubscriber);
+
     publisher.unsubscribeAll();
+
     eventEmitterStub.emit(fooEventName);
     eventEmitterStub.emit(barEventName);
-    eventEmitterStub.emit(fooEventName);
 
     // then
-    expect(firstSubscriber.calls).toBe(0);
-    expect(secondSubscriber.calls).toBe(0);
+    expect(firstSubscriber.callsCount).toBe(0);
+    expect(secondSubscriber.callsCount).toBe(0);
   });
 
   it('returns event subscribers count', () => {
     // given
-    const publisher = new Publisher(eventEmitterStub, eventEmitterStub.addListener, eventEmitterStub.removeListener);
-    const firstSubscriber = new Subscriber();
-    const secondSubscriber = new Subscriber();
+    const { publisher, firstSubscriber, secondSubscriber } = buildPublisherSubscribers();
 
     // when
     publisher.subscribe(barEventName, firstSubscriber.callback, firstSubscriber);
@@ -140,9 +145,7 @@ describe('Publisher', () => {
 
   it('returns all subscribers count', () => {
     // given
-    const publisher = new Publisher(eventEmitterStub, eventEmitterStub.addListener, eventEmitterStub.removeListener);
-    const firstSubscriber = new Subscriber();
-    const secondSubscriber = new Subscriber();
+    const { publisher, firstSubscriber, secondSubscriber } = buildPublisherSubscribers();
 
     // when
     publisher.subscribe(barEventName, firstSubscriber.callback, firstSubscriber);
