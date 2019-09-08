@@ -47,7 +47,7 @@ publisher.unsubscribeAll();
 * Behind the scenes, the *emitterInstance* is bound to *addListener* and *removeListener* methods as *this* ([see Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind))
 
 #### addListenerMethodName, removeListenerMethodName
-* Names of methods exposed by *emitterInstance* which add and remove event listeners, respectively
+* Names of methods (strings), which are exposed by *emitterInstance* and, which add and remove event listeners, respectively
 
 ### Methods
 
