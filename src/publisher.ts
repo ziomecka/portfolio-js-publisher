@@ -18,8 +18,11 @@ export class Publisher {
     const [ emitterInstance, addListenerMethodName, removeListenerMethodName ] = args;
     this.eventData = new Map([]);
 
-    this.addEventListener = addEventListener.bind(emitterInstance);
-    this.removeEventListener = removeEventListener.bind(emitterInstance);
+    this.addEventListener =
+      ( emitterInstance[ addListenerMethodName ] as SubscriptionFunctions).bind(emitterInstance);
+
+    this.removeEventListener =
+      ( emitterInstance[ removeListenerMethodName ] as SubscriptionFunctions).bind(emitterInstance);
   }
 
   public subscribe = (eventName: EventName, eventCallback: SubscriberEventCallback, subscriberInstance?: EmitterInstance): () => void => {
