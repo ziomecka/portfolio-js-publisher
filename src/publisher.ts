@@ -32,12 +32,16 @@ export class Publisher {
   }
 
   public subscribe = (eventName: EventName, eventCallback: SubscriberEventCallback, subscriberInstance?: EmitterInstance): () => void => {
-    const eventData = this.getEventData(eventName);
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
+    let eventData = this.getEventData(eventName);
+
+    if (!eventData) {
+      eventData = this.eventData.set(eventName, [ this.buildInformSubscribers(eventName), [] ]).get(eventName) as EventData;
+      this.observeEvent(eventName, eventData);
+    }
 
     eventData[ 1 ].push(subscriber);
 
-    this.observeEvent(eventName);
     return this.unsubscribe(eventName, subscriber);
   }
 
@@ -48,7 +52,7 @@ export class Publisher {
   }
 
   public eventSubscribersCount = (eventName: EventName): number => {
-    return this.getSubscribers(eventName).length;
+    return (this.getSubscribers(eventName) || []).length;
   }
 
   public subscribersCount = (): number => {
@@ -58,31 +62,28 @@ export class Publisher {
     }, 0);
   }
 
-  private getEventData (eventName: EventName): EventData {
-    return (
-      this.eventData.get(eventName) ||
-      this.eventData.set(eventName, [ this.buildInformSubscribers(eventName), [] ]).get(eventName)
-    ) as EventData;
+  private getEventData (eventName: EventName): EventData | undefined {
+    return this.eventData.get(eventName);
   }
 
-  private getEventCallback (eventName: EventName): SubscriberEventCallback {
-    return this.getEventData(eventName)[ 0 ];
+  private getEventCallback (eventName: EventName): SubscriberEventCallback | undefined {
+    return (this.getEventData(eventName) || [])[ 0 ];
   }
 
-  private getSubscribers (eventName: EventName): Subscriber[] {
-    return this.getEventData(eventName)[ 1 ];
+  private getSubscribers (eventName: EventName): Subscriber[] | undefined {
+    return (this.getEventData(eventName) || [])[ 1 ];
   }
 
   private buildInformSubscribers = (eventName: EventName): SubscriberEventCallback => (
     (event: Event): void => {
-      this.getSubscribers(eventName)
-      .forEach(subscriber => subscriber.eventCallback(event));
+      (this.getSubscribers(eventName) || [])
+        .forEach(subscriber => subscriber.eventCallback(event));
     }
   )
 
   private unsubscribe = (eventName: EventName, subscriber: Subscriber): (() => void) => {
     return (): void => {
-      const subscribersArray = this.getEventData(eventName)[ 1 ];
+      const subscribersArray = (this.getEventData(eventName) || [])[ 1 ];
 
       if (subscribersArray) {
         subscribersArray
@@ -96,11 +97,19 @@ export class Publisher {
     };
   }
 
-  private observeEvent = (eventName: EventName): void => {
-    this.addEventListener(eventName, this.getEventCallback(eventName));
+  private observeEvent = (eventName: EventName, eventData?: EventData): void => {
+    const eventCallback = eventData
+      ? eventData[ 0 ]
+      : this.getEventCallback(eventName);
+
+    if (eventCallback) {
+      this.addEventListener(eventName, eventCallback);
+    }
   }
 
   private unobserveEvent = (eventName: EventName): void => {
-    this.removeEventListener(eventName, this.getEventCallback(eventName));
+    this.removeEventListener(eventName, this.getEventCallback(eventName) as SubscriberEventCallback);
+
+    this.eventData.delete(eventName);
   }
 }
