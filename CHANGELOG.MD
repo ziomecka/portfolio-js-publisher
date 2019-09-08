@@ -1,3 +1,7 @@
+# @2.0.2 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.08]
+* converts EventCallback to generic type so type React.Events can be used
+* exports EmitterInstance type
+
 # @2.0.1 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.08]
 * accepts 'string', 'number' and 'symbol' as types of keys in EmitterInstance, thus window will be valid emitterInstance
 * adds and exports type UnsubscribeFunction
