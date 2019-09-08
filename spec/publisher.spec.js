@@ -25,7 +25,9 @@ describe('Publisher', () => {
   });
 
   afterEach(function () {
-    eventEmitterStub.removeAllListeners();
+    eventEmitterStub.removeAllListeners('fooEvent');
+    eventEmitterStub.removeAllListeners('barEvent');
+
     eventEmitterStub[ addListenerMethodName ].restore();
     eventEmitterStub[ removeListenerMethodName ].restore();
 
