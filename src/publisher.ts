@@ -7,8 +7,8 @@ import {
   isValidEmitter
 } from './publisher.types';
 import {
+  EventCallback,
   Subscriber,
-  SubscriberEventCallback,
 } from './subscriber';
 
 export class Publisher {
@@ -31,7 +31,7 @@ export class Publisher {
       ( emitterInstance[ removeListenerMethodName ] as SubscriptionFunctions).bind(emitterInstance);
   }
 
-  public subscribe = (eventName: EventName, eventCallback: SubscriberEventCallback, subscriberInstance?: EmitterInstance): () => void => {
+  public subscribe = (eventName: EventName, eventCallback: EventCallback, subscriberInstance?: EmitterInstance): () => void => {
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
     let eventData = this.getEventData(eventName);
 
@@ -66,7 +66,7 @@ export class Publisher {
     return this.eventData.get(eventName);
   }
 
-  private getEventCallback (eventName: EventName): SubscriberEventCallback | undefined {
+  private getEventCallback (eventName: EventName): EventCallback | undefined {
     return (this.getEventData(eventName) || [])[ 0 ];
   }
 
@@ -74,7 +74,7 @@ export class Publisher {
     return (this.getEventData(eventName) || [])[ 1 ];
   }
 
-  private buildInformSubscribers = (eventName: EventName): SubscriberEventCallback => (
+  private buildInformSubscribers = (eventName: EventName): EventCallback => (
     (event: Event): void => {
       (this.getSubscribers(eventName) || [])
         .forEach(subscriber => subscriber.eventCallback(event));
@@ -108,7 +108,7 @@ export class Publisher {
   }
 
   private unobserveEvent = (eventName: EventName): void => {
-    this.removeEventListener(eventName, this.getEventCallback(eventName) as SubscriberEventCallback);
+    this.removeEventListener(eventName, this.getEventCallback(eventName) as EventCallback);
 
     this.eventData.delete(eventName);
   }

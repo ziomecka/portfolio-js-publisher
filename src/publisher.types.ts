@@ -1,13 +1,13 @@
 import {
+  EventCallback,
   Subscriber,
-  SubscriberEventCallback,
 } from './subscriber';
 
 export type EventName = string;
-export type EventData = [SubscriberEventCallback, Subscriber[]];
+export type EventData = [EventCallback, Subscriber[]];
 export type EmitterInstance = Record<string, unknown>;
 
-export type SubscriptionFunctions = (eventName: string, eventCallback: SubscriberEventCallback) => void;
+export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
 export type PublisherProps = [ EmitterInstance, string, string ];
 
 export const isValidEmitter = (emitterInstance: Record<string, unknown>, addListenerMethodName: string, removeListenerMethodName: string): emitterInstance is EmitterInstance => {
