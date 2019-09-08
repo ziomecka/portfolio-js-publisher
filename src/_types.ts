@@ -1,6 +1,7 @@
 import { Subscriber } from './subscriber';
 
-export type EventCallback = (event: Event) => void;
+// generic type so type React.Events can be used
+export type EventCallback<P = {}> = (event: P & Event) => void;
 
 export type EventName = string;
 export type EventData = [EventCallback, Subscriber[]];
