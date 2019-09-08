@@ -31,6 +31,7 @@ module.exports = {
     'comma-spacing': 'error',
     'computed-property-spacing': ['error', 'always'],
     'key-spacing': 'error',
+    'max-len': ['error', { "code": 100 }],
     'no-duplicate-imports': 'error',
     'no-multi-spaces': 'error',
     'no-undef': 'off',
