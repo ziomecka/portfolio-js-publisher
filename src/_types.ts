@@ -9,6 +9,8 @@ export type EmitterInstance = Record<string | number | symbol, unknown>;
 export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
 export type PublisherProps = [ EmitterInstance, string, string ];
 
+export type UnsubscribeFunction = () => void;
+
 export const isValidEmitter = (
   emitterInstance: EmitterInstance,
   addListenerMethodName: string | number,

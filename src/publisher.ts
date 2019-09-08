@@ -5,6 +5,7 @@ import {
   EventName,
   PublisherProps,
   SubscriptionFunctions,
+  UnsubscribeFunction,
   isValidEmitter
 } from './_types';
 import { Subscriber } from './subscriber';
@@ -85,7 +86,7 @@ export class Publisher {
     }
   )
 
-  private unsubscribe = (eventName: EventName, subscriber: Subscriber): (() => void) => {
+  private unsubscribe = (eventName: EventName, subscriber: Subscriber): UnsubscribeFunction => {
     return (): void => {
       const subscribersArray = (this.getEventData(eventName) || [])[ 1 ];
 
