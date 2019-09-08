@@ -4,6 +4,7 @@ import {
   EventName,
   PublisherProps,
   SubscriptionFunctions,
+  isValidEmitter
 } from './publisher.types';
 import {
   Subscriber,
@@ -16,6 +17,11 @@ export class Publisher {
   private removeEventListener: SubscriptionFunctions;
   constructor (...args: PublisherProps) {
     const [ emitterInstance, addListenerMethodName, removeListenerMethodName ] = args;
+
+    if (!isValidEmitter(emitterInstance, addListenerMethodName, removeListenerMethodName)) {
+      throw new Error('Publisher received incorrect arguments');
+    }
+
     this.eventData = new Map([]);
 
     this.addEventListener =
