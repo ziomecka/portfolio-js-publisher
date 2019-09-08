@@ -146,4 +146,10 @@ describe('Publisher', () => {
     // then
     expect(publisher.subscribersCount()).toBe(4);
   });
+
+  it('throws Error if receives invalid eventEmitter', () => {
+    // then
+    expect(() => new Publisher(eventEmitterStub, 'someFooMethod', 'someBarMethod'))
+      .toThrowError('Publisher received incorrect arguments');
+  });
 });
