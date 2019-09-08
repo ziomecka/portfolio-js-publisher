@@ -29,12 +29,18 @@ export class Publisher {
       ( emitterInstance[ removeListenerMethodName ] as SubscriptionFunctions).bind(emitterInstance);
   }
 
-  public subscribe = (eventName: EventName, eventCallback: EventCallback, subscriberInstance?: EmitterInstance): () => void => {
+  public subscribe = (
+    eventName: EventName,
+    eventCallback: EventCallback,
+    subscriberInstance?: EmitterInstance
+  ): () => void => {
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
     let eventData = this.getEventData(eventName);
 
     if (!eventData) {
-      eventData = this.eventData.set(eventName, [ this.buildInformSubscribers(eventName), [] ]).get(eventName) as EventData;
+      eventData = this.eventData
+        .set( eventName, [ this.buildInformSubscribers(eventName), [] ])
+        .get(eventName) as EventData;
       this.observeEvent(eventName, eventData);
     }
 

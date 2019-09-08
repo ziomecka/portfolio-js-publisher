@@ -16,7 +16,8 @@ describe('Publisher', () => {
   global.eventCallback = () => {};
 
   const buildPublisherSubscribers = () => {
-    const publisher = new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
+    const publisher =
+      new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
     const firstSubscriber = new SubscriberStub();
     const secondSubscriber = new SubscriberStub();
 
@@ -45,14 +46,16 @@ describe('Publisher', () => {
 
   it('subscribes to event only once', function () {
     // given
-    const publisher = new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
+    const publisher =
+      new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
 
     // when
     publisher.subscribe(fooEventName, eventCallback);
     publisher.subscribe(fooEventName, eventCallback);
 
     // then
-    const { args: [ passedEventName, passedCallback ] } = eventEmitterStub[ addListenerMethodName ].getCalls()[ 0 ];
+    const { args: [ passedEventName, passedCallback ] } =
+      eventEmitterStub[ addListenerMethodName ].getCalls()[ 0 ];
 
     expect(eventEmitterStub[ addListenerMethodName ]).toBeCalledOnce;
     expect(eventEmitterStub.listenerCount(fooEventName)).toBe(1);
@@ -62,14 +65,16 @@ describe('Publisher', () => {
 
   it('unsubscribes from event', () => {
     // given
-    const publisher = new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
+    const publisher =
+      new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
 
     // when
     const unsubscribe = publisher.subscribe(barEventName, eventCallback);
     unsubscribe();
 
     // then
-    const { args: [ eventName, callback ] } = eventEmitterStub[ removeListenerMethodName ].getCalls()[ 0 ];
+    const { args: [ eventName, callback ] } =
+      eventEmitterStub[ removeListenerMethodName ].getCalls()[ 0 ];
 
     expect(eventEmitterStub[ removeListenerMethodName ]).toBeCalledOnce;
     expect(eventName).toBe(barEventName);
@@ -78,7 +83,8 @@ describe('Publisher', () => {
 
   it('unsubscribes from all events', () => {
     // given
-    const publisher = new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
+    const publisher =
+      new Publisher(eventEmitterStub, addListenerMethodName, removeListenerMethodName);
 
     // when
     publisher.subscribe(barEventName, eventCallback);
@@ -87,8 +93,10 @@ describe('Publisher', () => {
     publisher.unsubscribeAll();
 
     // then
-    const { args: [ firstPassedEventName, firstPassedCallback ] } = eventEmitterStub[ removeListenerMethodName ].getCalls()[ 0 ];
-    const { args: [ secondPassedEventName, secondCallback ] } = eventEmitterStub[ removeListenerMethodName ].getCalls()[ 1 ];
+    const { args: [ firstPassedEventName, firstPassedCallback ] } =
+      eventEmitterStub[ removeListenerMethodName ].getCalls()[ 0 ];
+    const { args: [ secondPassedEventName, secondCallback ] } =
+      eventEmitterStub[ removeListenerMethodName ].getCalls()[ 1 ];
 
     expect(eventEmitterStub[ removeListenerMethodName ]).toBeCalledTwice;
 
