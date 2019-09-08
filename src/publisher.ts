@@ -13,7 +13,8 @@ export class Publisher {
   private eventData: Map< EventName, EventData>;
   private addEventListener: SubscriptionFunctions;
   private removeEventListener: SubscriptionFunctions;
-  constructor (...[ emitterInstance, addEventListener, removeEventListener ]: PublisherProps ) {
+  constructor (...args: PublisherProps) {
+    const [ emitterInstance, addListenerMethodName, removeListenerMethodName ] = args;
     this.eventData = new Map([]);
 
     this.addEventListener = addEventListener.bind(emitterInstance);
