@@ -1,4 +1,5 @@
 import {
+  EmitterInstance,
   EventData,
   EventName,
   PublisherProps,
@@ -21,7 +22,7 @@ export class Publisher {
     this.removeEventListener = removeEventListener.bind(emitterInstance);
   }
 
-  public subscribe = (eventName: EventName, eventCallback: SubscriberEventCallback, subscriberInstance?: Record<string, unknown>): () => void => {
+  public subscribe = (eventName: EventName, eventCallback: SubscriberEventCallback, subscriberInstance?: EmitterInstance): () => void => {
     const eventData = this.getEventData(eventName);
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
 

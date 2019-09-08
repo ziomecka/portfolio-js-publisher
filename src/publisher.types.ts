@@ -5,6 +5,7 @@ import {
 
 export type EventName = string;
 export type EventData = [SubscriberEventCallback, Subscriber[]];
+export type EmitterInstance = Record<string, unknown>;
 
 export type SubscriptionFunctions = (eventName: string, eventCallback: SubscriberEventCallback) => void;
-export type PublisherProps = [ unknown, SubscriptionFunctions, SubscriptionFunctions ];
+export type PublisherProps = [ EmitterInstance, SubscriptionFunctions, SubscriptionFunctions ];
