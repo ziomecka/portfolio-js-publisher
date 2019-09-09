@@ -1,3 +1,6 @@
+# @2.0.3 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.09]
+* adds Window to EmitterInstance type
+
 # @2.0.2 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.08]
 * converts EventCallback to generic type so type React.Events can be used
 * exports EmitterInstance type

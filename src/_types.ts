@@ -1,11 +1,11 @@
 import { Subscriber } from './subscriber';
 
-// generic type so type React.Events can be used
+// EventCallback is generic, thus generic type of Event can be used (e.g. type React.Events )
 export type EventCallback<P = {}> = (event: P & Event) => void;
 
 export type EventName = string;
 export type EventData = [EventCallback, Subscriber[]];
-export type EmitterInstance = Record<string | number | symbol, unknown>;
+export type EmitterInstance = Record<string | number | symbol, unknown> | Window;
 
 export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
 export type PublisherProps = [ EmitterInstance, string, string ];
@@ -18,8 +18,14 @@ export const isValidEmitter = (
   removeListenerMethodName: string | number
   ): emitterInstance is EmitterInstance => {
 
-  const isOfType = (value: unknown, type: 'symbol' | 'function'): boolean => typeof value === type;
+  if (emitterInstance instanceof Window) {
+    return (
+      addListenerMethodName in emitterInstance &&
+      removeListenerMethodName in emitterInstance
+    );
+  }
 
+  const isOfType = (value: unknown, type: 'symbol' | 'function'): boolean => typeof value === type;
   const addMethodName: keyof typeof emitterInstance = addListenerMethodName;
   const removeMethodName: keyof typeof emitterInstance = removeListenerMethodName;
 
