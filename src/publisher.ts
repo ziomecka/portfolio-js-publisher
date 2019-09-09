@@ -1,9 +1,9 @@
 import {
-  EmitterInstance,
   EventCallback,
   EventData,
   EventName,
   PublisherProps,
+  SubscriberInstance,
   SubscriptionFunctions,
   UnsubscribeFunction,
   isValidEmitter
@@ -24,16 +24,18 @@ export class Publisher {
     this.eventData = new Map([]);
 
     this.addEventListener =
+      // @ts-ignore
       ( emitterInstance[ addListenerMethodName ] as SubscriptionFunctions).bind(emitterInstance);
 
     this.removeEventListener =
+      // @ts-ignore
       ( emitterInstance[ removeListenerMethodName ] as SubscriptionFunctions).bind(emitterInstance);
   }
 
   public subscribe = (
     eventName: EventName,
     eventCallback: EventCallback,
-    subscriberInstance?: EmitterInstance
+    subscriberInstance?: SubscriberInstance
   ): () => void => {
     const subscriber = new Subscriber(eventCallback, subscriberInstance);
     let eventData = this.getEventData(eventName);
