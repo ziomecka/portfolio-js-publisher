@@ -1,3 +1,6 @@
+# @2.0.4 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.09]
+* modifies EmitterInstance type so it extends object with key of string type
+
 # @2.0.3 [author: Katarzyna Ziomek-Zdanowicz, date: 2019.09.09]
 * adds Window to EmitterInstance type
 

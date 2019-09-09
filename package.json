@@ -1,6 +1,6 @@
 {
   "name": "publisher-subscriber-pattern",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Publisher subscriber pattern that can be used with different event emitters including browser window",
   "main": "dist/index.js",
   "scripts": {
