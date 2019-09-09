@@ -6,6 +6,7 @@ export type EventCallback<P = {}> = (event: P & Event) => void;
 export type EventName = string;
 export type EventData = [EventCallback, Subscriber[]];
 export type EmitterInstance = Record<string | number | symbol, unknown> | Window;
+export type SubscriberInstance = Record<number | string | symbol, unknown>;
 
 export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
 export type PublisherProps = [ EmitterInstance, string, string ];
