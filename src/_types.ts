@@ -5,7 +5,9 @@ export type EventCallback<P = {}> = (event: P & Event) => void;
 
 export type EventName = string;
 export type EventData = [EventCallback, Subscriber[]];
-export type EmitterInstance = Record<string | number | symbol, unknown> | Window;
+
+interface ObjectI { [ key: string ]: unknown };
+export type EmitterInstance = ObjectI | Record<number | string | symbol, unknown>;
 export type SubscriberInstance = Record<number | string | symbol, unknown>;
 
 export type SubscriptionFunctions = (eventName: string, eventCallback: EventCallback) => void;
@@ -15,31 +17,14 @@ export type UnsubscribeFunction = () => void;
 
 export const isValidEmitter = (
   emitterInstance: EmitterInstance,
-  addListenerMethodName: string | number,
-  removeListenerMethodName: string | number
+  addListenerMethodName: string,
+  removeListenerMethodName: string
   ): emitterInstance is EmitterInstance => {
 
-  if (emitterInstance instanceof Window) {
-    return (
-      addListenerMethodName in emitterInstance &&
-      removeListenerMethodName in emitterInstance
-    );
-  }
-
-  const isOfType = (value: unknown, type: 'symbol' | 'function'): boolean => typeof value === type;
-  const addMethodName: keyof typeof emitterInstance = addListenerMethodName;
-  const removeMethodName: keyof typeof emitterInstance = removeListenerMethodName;
-
-  const addKey = isOfType(addListenerMethodName, 'symbol')
-    ? addListenerMethodName
-    : addMethodName;
-
-  const removeKey = isOfType(removeListenerMethodName, 'symbol')
-    ? removeListenerMethodName
-    : removeMethodName;
-
   return (
-    isOfType(emitterInstance[ addKey ], 'function') &&
-    isOfType(emitterInstance[ removeKey ], 'function')
+    addListenerMethodName in emitterInstance &&
+    removeListenerMethodName in emitterInstance &&
+    typeof emitterInstance[ addListenerMethodName ] === 'function' &&
+    typeof emitterInstance[ removeListenerMethodName ] === 'function'
   );
 };
