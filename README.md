@@ -1,12 +1,23 @@
+
+[![npm version](https://badge.fury.io/js/publisher-subscriber-pattern.svg)](https://badge.fury.io/js/publisher-subscriber-pattern)
+
+------
+
 # About
+
 * Javascript implementation of publisher subscriber pattern
 * Can be used with various event emitters including browser's *window* object
 * Provides **Publisher** class
 
+------
+
 # Installation
+
 ```javascript
 npm i publisher-subscriber-pattern
 ```
+
+------
 
 # Example
 
@@ -35,7 +46,10 @@ There is also a method *unsubscribeAll* for unsubscribing all subscribers from a
 publisher.unsubscribeAll();
 ```
 
+------
+
 # API
+
 ## **Publisher**
 * Parameters: *emitterInstance*, *addListenerMethodName*, *removeListenerMethodName*
 * Methods: *subscribe*, *unsubscribeAll*, *eventSubscribersCount*, *subscribersCount*
@@ -68,12 +82,14 @@ publisher.unsubscribeAll();
 #### subscribersCount
 * Returns number of subscriber's *eventCallbacks* subscribed to all publisher's *eventNames*
 
+------
+
 # Dependencies
 
-## Production dependencies
+## Dependencies
 * Package has no production dependencies
 
-## Main development dependencies
+## DevDependencies
 * Typescript
 * Jasmine, chai, sinon
 * Babel
